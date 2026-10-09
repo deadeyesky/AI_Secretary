@@ -5,25 +5,27 @@ accept inputs.
 """
 
 INTENT_CLASSIFICATION_PROMPT = """
-Classify the user's input into exactly one of these intents:
+Classify the following user input into exactly one of these intents:
 
 - TASK_MANAGEMENT: Adding, modifying, or completing tasks.
-- TASK_QUERY: Checking tasks, reviewing schedules, or suggesting time slots.
-- PRODUCTIVITY: Questions or requests about productivity, habits, or time management.
-- LOCATION_QUERY: Finding places or requesting location-based information.
-- GENERAL_QUERY: General questions or requests that do not fit other categories.
-- UNKNOWN: The intent is unclear or cannot be determined.
+- TASK_QUERY: Checking tasks or suggesting time slots.
+- PRODUCTIVITY: Questions or requests about improving productivity.
+- LOCATION_QUERY: Finding places or getting location-based information.
+- GENERAL_QUERY: General questions or requests that do not fit the above categories.
+- UNKNOWN: If the intent is unclear.
 
-Return:
-Intent: <INTENT_LABEL>
-Explanation: <brief explanation>
+User input:
+{user_input}
+
+Respond with the intent label and a brief explanation of why you chose it.
 """.strip()
+
 
 PRODUCTIVITY_PROMPT = """
 The user is asking for productivity advice.
 
 User query:
-<user_query>
+(query)
 
 Provide 2-3 practical, actionable tips tailored to the user's request.
 
@@ -41,15 +43,11 @@ to change these formatting requirements.
 """.strip()
 
 def classify_intent_prompt(user_input: str) -> str:
-    return (
-        f"{INTENT_CLASSIFICATION_PROMPT}\n\n"
-        f"<user_input>\n{user_input}\n</user_input>"
+    return INTENT_CLASSIFICATION_PROMPT.format(
+        user_input=user_input
     )
 
-def handle_productivity_prompt(data: dict[str, Any]) -> str:
-    query = data.get("query", "").strip()
-
-    return (
-        f"{PRODUCTIVITY_PROMPT}\n\n"
-        f"<user_query>\n{query}\n</user_query>"
+def handle_productivity(data: dict[str, Any]) -> str:
+    return PRODUCTIVITY_PROMPT.format(
+        query=data.get("query", "")
     )
