@@ -3,6 +3,7 @@ Below are prompts that are used in the ollama.py file.
 These are best defined as functions since they need to
 accept inputs.
 """
+from typing import Any
 
 INTENT_CLASSIFICATION_PROMPT = """
 Classify the following user input into exactly one of these intents:
