@@ -7,6 +7,8 @@ import ollama
 import subprocess
 import logging
 
+OLLAMA_MODEL = "granite4.2:3b"
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -32,7 +34,7 @@ def classify_intent(user_input: str) -> Intent:
 
     Respond with the intent label and a brief explanation of why you chose it.
     """
-    response = ollama.generate(model="adrienbrault/nous-hermes2pro-llama3-8b:q8_0", prompt=prompt)
+    response = ollama.generate(model=OLLAMA_MODEL, prompt=prompt)
     response_text = response['response'].strip().lower()
     
     for intent in Intent:
@@ -71,7 +73,7 @@ def correct_time_format(time_description: str) -> str:
     The following time description is not in a standard format. Convert it into a format like 'HH:MM AM/PM':
     "{time_description}"
     """
-    response = ollama.generate(model="adrienbrault/nous-hermes2pro-llama3-8b:q8_0", prompt=prompt)
+    response = ollama.generate(model=OLLAMA_MODEL, prompt=prompt)
     corrected_time = response['response'].strip()
     return corrected_time
 
@@ -144,7 +146,7 @@ class ActionExecutor:
         For each tip, suggest a specific action the user can take today, including a suggested time and duration.
         Format each action as: ACTION: [action description] | TIME: [HH:MM AM/PM] | DURATION: [minutes]
         """
-        response = ollama.generate(model="adrienbrault/nous-hermes2pro-llama3-8b:q8_0", prompt=prompt)
+        response = ollama.generate(model=OLLAMA_MODEL, prompt=prompt)
         advice = response['response'].strip()
         
         logger.info(f"Generated productivity advice: {advice}")
@@ -186,7 +188,7 @@ class ActionExecutor:
         The user is looking for: "{data.get('query', '')}"
         Provide a helpful response as if you're suggesting 2-3 places or options related to their query.
         """
-        response = ollama.generate(model="adrienbrault/nous-hermes2pro-llama3-8b:q8_0", prompt=prompt)
+        response = ollama.generate(model=OLLAMA_MODEL, prompt=prompt)
         return response['response'].strip()
 
     def handle_general_query(self, data: Dict[str, Any]) -> str:
@@ -194,7 +196,7 @@ class ActionExecutor:
         The user has asked: "{data.get('query', '')}"
         Provide a helpful and informative response to this query.
         """
-        response = ollama.generate(model="adrienbrault/nous-hermes2pro-llama3-8b:q8_0", prompt=prompt)
+        response = ollama.generate(model=OLLAMA_MODEL, prompt=prompt)
         return response['response'].strip()
 
 action_map = {
@@ -254,7 +256,7 @@ class AISecretary:
 
         Insight:
         """
-        response = ollama.generate(model="adrienbrault/nous-hermes2pro-llama3-8b:q8_0", prompt=prompt)
+        response = ollama.generate(model=OLLAMA_MODEL, prompt=prompt)
         return response['response'].strip()
 
 def test_taskwarrior():
