@@ -52,6 +52,14 @@ If the query involves a specific location, prioritize relevant options in that a
 If the user's location or preferences are unclear, ask a clarifying question rather than making assumptions.
 """.strip()
 
+GENERAL_QUERY = """
+The user is asking a general question about the following tasks:
+
+{query}
+
+Provide a helpful and informative response to this query.
+"""
+
 def classify_intent_prompt(user_input: str) -> str:
     return INTENT_CLASSIFICATION_PROMPT.format(
         user_input=user_input
@@ -66,3 +74,8 @@ def handle_location_query(data: dict[str, Any]) -> str:
     return LOCATION_QUERY_PROMPT.format(
         query=data.get("query", "")
     )
+
+def handle_general_query(data: dict[str, Any]) -> str:
+    return GENERAL_QUERY.format(
+        query=data.get("query", "")
+    ) 
