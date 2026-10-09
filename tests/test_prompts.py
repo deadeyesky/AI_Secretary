@@ -5,10 +5,12 @@ from prompts import (
     PRODUCTIVITY_PROMPT,
     LOCATION_QUERY_PROMPT,
     GENERAL_QUERY,
+    TASK_INSIGHTS_PROMPT,
     classify_intent_prompt,
     handle_productivity,
     handle_location_query,
     handle_general_query,
+    handle_insight_query,
 )
 
 
@@ -82,6 +84,12 @@ def test_handle_general_query_missing_query():
     result = handle_general_query({})
 
     assert GENERAL_QUERY.format(query="") == result
+
+
+def test_handle_insights_query_missing_query():
+    result = handle_insight_query("")
+
+    assert TASK_INSIGHTS_PROMPT.format(completed_tasks="") == result
 
 
 @pytest.mark.parametrize(

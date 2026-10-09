@@ -59,7 +59,18 @@ The user is asking a general question about the following tasks:
 {query}
 
 Provide a helpful and informative response to this query.
-"""
+""".strip()
+
+
+TASK_INSIGHTS_PROMPT = """
+Based on the following completed tasks, provide a brief insight or suggestion for the user.
+
+Completed tasks:
+{completed_tasks}
+
+Insight:
+""".strip()
+
 
 def classify_intent_prompt(user_input: str) -> str:
     return INTENT_CLASSIFICATION_PROMPT.format(
@@ -79,4 +90,9 @@ def handle_location_query(data: dict[str, Any]) -> str:
 def handle_general_query(data: dict[str, Any]) -> str:
     return GENERAL_QUERY.format(
         query=data.get("query", "")
-    ) 
+    )
+
+def handle_insight_query(completed_tasks_str: str) -> str:
+    return TASK_INSIGHTS_PROMPT.format(
+        completed_tasks=completed_tasks_str
+    )
