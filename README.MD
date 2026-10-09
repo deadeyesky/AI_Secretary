@@ -1,6 +1,6 @@
 # AI Secretary
 
-AI Secretary is an intelligent productivity assistant that helps you manage tasks effectively using TaskWarrior. It classifies user intents, schedules tasks, and provides productivity tips, all while handling non-standard time formats with the help of an LLM (Large Language Model).
+AI Secretary is an intelligent productivity assistant that helps you manage tasks effectively using TaskWarrior. It classifies user intents, schedules tasks, and provides productivity tips, all while handling non-standard time formats with the help of an LLM (Large Language Model). It can run fully private!
 
 ## Features
 
@@ -13,7 +13,7 @@ AI Secretary is an intelligent productivity assistant that helps you manage task
 
 ## Requirements
 
-- Python 3.12+
+- Python 3.13+
 - UV package manager
 - TaskWarrior
 - Ollama LLM (for intent classification and time format correction)
