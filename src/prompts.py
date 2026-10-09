@@ -22,6 +22,9 @@ Explanation: <brief explanation>
 PRODUCTIVITY_PROMPT = """
 The user is asking for productivity advice.
 
+User query:
+<user_query>
+
 Provide 2-3 practical, actionable tips tailored to the user's request.
 
 For each tip:
