@@ -85,6 +85,13 @@ def test_handle_general_query_missing_query():
 
     assert GENERAL_QUERY.format(query="") == result
 
+def test_handle_insights_query_includes_query():
+    query = "Finished making soup for breakfast."
+    result = handle_insight_query({"query": query})
+
+    assert query in result
+    assert "provide a brief insight"
+
 
 def test_handle_insights_query_missing_query():
     result = handle_insight_query("")
@@ -107,6 +114,7 @@ def test_prompt_functions_preserve_query_text(query):
     assert query in handle_productivity({"query": query})
     assert query in handle_location_query({"query": query})
     assert query in handle_general_query({"query": query})
+    assert query in handle_insight_query("".join(query))
 
 
 def test_prompt_functions_handle_missing_query_key():
@@ -114,4 +122,4 @@ def test_prompt_functions_handle_missing_query_key():
 
     assert handle_productivity(data) == PRODUCTIVITY_PROMPT.format(query="")
     assert handle_location_query(data) == LOCATION_QUERY_PROMPT.format(query="")
-    assert handle_general_query(data) == GENERAL_QUERY.format(query="")
+    assert handle_general_query(data) == GENERAL_QUERY.format(query="") 
