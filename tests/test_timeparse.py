@@ -1,7 +1,6 @@
-from datetime import datetime
-
 import pytest
 
+from datetime import datetime
 from timeparse import parse_time
 
 BASE = datetime(2026, 10, 10, 9, 15, 30, 123456)
@@ -21,6 +20,9 @@ BASE = datetime(2026, 10, 10, 9, 15, 30, 123456)
         ("midday", 12, 0),
         ("midnight", 0, 0),
         ("  Noon  ", 12, 0),
+        ("MIDDAY", 12, 0),
+        ("  MIDNIGHT    ", 0, 0),
+        ("06:54 P.M.", 18, 54)
     ],
 )
 def test_parse_time_understands_expected_formats(text, hour, minute):
